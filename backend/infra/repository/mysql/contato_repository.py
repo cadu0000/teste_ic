@@ -1,4 +1,4 @@
-from main import DatabaseManager
+from infra.repository.database_manager import DatabaseManager
 
 class ContatoRepository:
     def __init__(self, db_manager: DatabaseManager, data=None):

@@ -1,4 +1,4 @@
-from main import DatabaseManager
+from infra.repository.database_manager import DatabaseManager
 
 class LocalizacaoRepository:
     def __init__(self, db_manager: DatabaseManager, data=None):
@@ -7,7 +7,7 @@ class LocalizacaoRepository:
 
     def insert(self):
         query = """
-            INSERT INTO localizacao (cnpj_operadora, logradouro, numero, complemento, bairro, cidade, uf, cep)
+            INSERT INTO localizacao (logradouro, numero, complemento, bairro, cidade, uf, cep, cnpj_operadora)
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
         """
         self.db_manager.insert_batch(query, self.data)
