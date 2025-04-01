@@ -1,4 +1,4 @@
-from main import DatabaseManager
+from infra.repository.database_manager import DatabaseManager
 
 class DemonstracoesContabeisRepository:
     def __init__(self, db_manager: DatabaseManager, data=None):
@@ -11,7 +11,10 @@ class DemonstracoesContabeisRepository:
             VALUES (%s, %s, %s, %s, %s, %s)
             ON DUPLICATE KEY UPDATE vl_saldo_final=VALUES(vl_saldo_final)
         """
-        self.db_manager.insert_batch(query, self.data)
+        if all(len(item) == 6 for item in self.data):
+            self.db_manager.insert_batch(query, self.data)
+        else:
+            raise ValueError("Os dados não estão no formato correto, cada item precisa ser uma tupla de 6 elementos.")
 
     def get(self, reg_ans=None):
         query = """
@@ -25,4 +28,4 @@ class DemonstracoesContabeisRepository:
             return self.db_manager.query(query)
         
         except Exception as e:
-            print(f"Erro ao buscar demonstrações contábeis: {str(e)}")
+            raise Exception(f"Erro ao buscar demonstrações contábeis: {str(e)}")

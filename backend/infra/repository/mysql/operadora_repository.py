@@ -35,10 +35,9 @@ class OperadoraRepository:
             
     def get_operadoras_with_highest_expenses(self):
         query = """
-            SELECT nome_fantasia, reg_ans, total_despesas FROM maiores_despesas_ultimo_ano LIMIT 10;
+            SELECT nome_fantasia, reg_ans, total_despesas FROM maiores_despesas_ultimo_ano LIMIT 3;
         """
-        try:
-            print("Executando a query:", query)  
+        try:    
             operadoras = self.db_manager.query(query)
             
             if not operadoras:
@@ -46,14 +45,14 @@ class OperadoraRepository:
             return operadoras, 200
         
         except Exception as e:
-            return {"error": "Erro ao listar operadoras com maiores despesas"}, 500
+            raise Exception (f"Erro ao buscar operadoras com maiores despesas: {str(e)}")
 
     def get_operadora_by_name(self, name):
         if not name:
             return {"error": "Nome da operadora é necessário"}, 400
 
         query = """
-            SELECT nome_fantasia, cnpj, razao_social, modalidade 
+            SELECT nome_fantasia, cnpj
             FROM operadora WHERE nome_fantasia LIKE %s
         """
         try:
@@ -63,5 +62,4 @@ class OperadoraRepository:
   
             return operadoras, 200 
         except Exception as e:
-            print(f"Erro ao buscar operadora por nome: {str(e)}")
-            return {"error": "Erro ao buscar operadora"}, 500
+            raise Exception(f"Erro ao buscar operadora por nome {name}: {str(e)}")

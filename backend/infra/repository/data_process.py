@@ -6,17 +6,17 @@ class DataProcessor:
         self.operadora = Operadora(operadora_df)
         self.contabeis = Contabilidade(contabeis_df)
     
-    def processar_operadora(self):
+    def process_operadora(self):
         return self.operadora.processar_dados_operadora()
     
-    def processar_representante(self):
+    def process_representante(self):
         return self.operadora.processar_representante()
     
-    def processar_contato(self):
+    def process_contato(self):
         return self.operadora.processar_contato()
     
-    def processar_localizacao(self):
+    def process_localizacao(self):
         return self.operadora.processar_localizacao()
     
-    def processar_contabeis(self):
-        return self.contabeis.processar_contabeis()
+    def process_contabeis(self, valid_reg_ans):
+        return self.contabeis.processar_contabeis(valid_reg_ans)

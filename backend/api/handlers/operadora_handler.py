@@ -11,10 +11,10 @@ class OperadoraHandler:
 
             if not operadoras:
                 return jsonify({"message": "Não foram encontrados operadores"}), 404
-            
             return jsonify(operadoras), 200
+        
         except Exception as e:
-            return jsonify({"error": f"Error listing operadoras: {str(e)}"}), 500
+            return jsonify({"error": f"Erro ao listar operadoras: {str(e)}"}), 500
 
     def search_operadora_by_name(self):
         try:
